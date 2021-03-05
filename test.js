@@ -1,5 +1,46 @@
 var assert = require('assert');
 
+class InventoryList {
+    properties = {};
+    previousPropertiesState = [];
+
+    constructor(obj) {
+      if(obj)
+        this.properties = obj;
+    }
+
+    add(obj, amount = 1) {
+      this.previousPropertiesState.push({...this.properties});
+      
+      if(this.properties[obj]) {
+        this.properties[obj] = this.properties[obj] + amount;
+      } else {
+        this.properties[obj] = amount;
+      }
+    }
+
+    getList() {
+      return this.properties;
+    }
+
+    remove(obj, amount = 1) {
+      this.previousPropertiesState.push({...this.properties});
+
+      var amount = this.properties[obj] - amount;
+      
+      if(amount > 0){
+        this.properties[obj] = amount
+      } else {
+        delete this.properties[obj]
+      }
+    }
+
+    undo (){
+      var previous = this.previousPropertiesState.pop();
+      this.properties = previous;
+    }
+} 
+
 describe('InventoryList', function () {
   it('can add items', function () {
     var list = new InventoryList();
@@ -76,7 +117,7 @@ describe('InventoryList', function () {
 
   it('can accept an initial list', function() {
     var initialList = { "Shirt": 1 };
-    var list = new InventoryList({...initialList});
+    var list = new InventoryList(initialList);
 
     list.add('Shirt');
 
