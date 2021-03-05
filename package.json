@@ -1,0 +1,14 @@
+{
+  "name": "js-inventory-list",
+  "version": "1.0.0",
+  "description": "Code test",
+  "main": "index.js",
+  "author": "jheth",
+  "license": "MIT",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.3"
+  }
+}
